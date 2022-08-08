@@ -2374,6 +2374,11 @@
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
 
+"@xianzhengquan/postcss-px-2-vw@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@xianzhengquan/postcss-px-2-vw/-/postcss-px-2-vw-0.0.1.tgz#c884366063f4c70cc12198fdb3c8ea03d39c310f"
+  integrity sha512-QFmMR2q+q58WfW5ylzDtA5HdRz/tQ5/2QNglLb6iSan4IYnlXpTKZpIC8jIA/I2tKAEgZfSh5FmwIyM/qbd4FA==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"

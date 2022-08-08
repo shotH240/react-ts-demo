@@ -1,5 +1,7 @@
 .main {
   background-color: #000;
+  width: 100%;
+  height: 100%;
 }
 
 .nav-list {
@@ -7,5 +9,12 @@
   .block {
     width: 300px;
     height: 140px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: aqua;
+    border-radius: 10px;
+    margin: 25px;
   }
 }
