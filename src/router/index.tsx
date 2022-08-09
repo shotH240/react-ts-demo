@@ -35,8 +35,9 @@ const routers: RoutesType = [
         path: 'first',
         element: <First />
       },
+      // http://localhost:3001/routeMock/first/:123
       {
-        path: 'first/:pageId',
+        path: 'first/:pageId', // 动态路由
         element: <First />
       },
       {
