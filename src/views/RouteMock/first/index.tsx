@@ -6,7 +6,7 @@ export default function First() {
   useEffect(() => {
     // console.log('unn==', useParams())
     console.log('params', params)
-  }, [])
+  }, [params])
   return (
     <div>First=====</div>
   )

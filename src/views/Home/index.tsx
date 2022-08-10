@@ -1,5 +1,6 @@
 // @flow
-import * as React from 'react';
+import React, {useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom"; 
 import style from './style/index.module.scss';
 
 interface NavListTarget {
@@ -7,62 +8,44 @@ interface NavListTarget {
   path: string
 }
 
-type Props = {
-  state: object
-};
-type State = {
-  target: string,
-  navList: Array<NavListTarget>
-};
+export default function Home(props:any){
+  const navigate = useNavigate();
+  const [target, setTarget] = useState('test');
+  const navList:Array<NavListTarget> = [
+    { label: '基础类型', path: '/basis' },
+    { label: '拖拽', path: '/drag' },
+  ];
+  useEffect(() => {
+    setTarget('666');
+    // const someValue: any = 'test';
+    // // const svn: number = (someValue as string).length;
+    // // const arr: Array<string | boolean> = [false, 'catt']
+    // // console.log('svn==', svn, arr)
+    // // console.log('this==', target)
+  }, [navigate, props.state, target])
 
-
-export default class Home extends React.Component<Props, State>{
-  constructor({ props }: any) {
-    super(props);
-    this.state = {
-      target: 'test',
-      navList: [
-        { label: '基础类型', path: '' },
-      ]
-    }
-  }
-  async componentDidMount() {
-    console.log('cdd==', style, this.props.state, this.state)
-    await this.setState({
-      target:'666'
-    })
-    const someValue: any = 'test';
-    const svn: number = (someValue as string).length;
-
-    const arr: Array<string | boolean> = [false, 'catt']
-    console.log('svn==', svn, arr)
-    console.log('this==', this.state.target)
-  }
-
-  toPage(path: string) {
+  function toPage(path: string) {
     console.log('path=', path)
+    navigate(path, { state: { query: 'test' } })
   }
 
-  navListComponent() {
+  function NavListComponent() {
     return (
       <div className={style['nav-list']}>
-        {this.state.navList.map((item, index) => {
+        {navList.map((item, index) => {
           return (
             <div
               className={style.block}
               key={index}
-              onClick={() => this.toPage(item.path)}>{item.label}</div>
+              onClick={() => toPage(item.path)}>{item.label}</div>
           )
         })}
       </div>
     )
   }
-  render() {
-    return (
-      <div className={style.main}>
-        {/* { navList} */}
-        { this.navListComponent() }
-      </div>
-    );
-  };
+  return (
+    <div className={style.main}>
+      <NavListComponent />
+    </div>
+  );
 };

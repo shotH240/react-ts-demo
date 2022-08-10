@@ -1,15 +1,12 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
+// import { useParams } from 'react-router-dom';
 
-type Props = {}
-
-type State = {}
-
-export default class Basis extends Component<Props, State> {
-  state = {}
-
-  render() {
-    return (
-      <div>Basis</div>
-    )
-  }
+export default function Basis() {
+  // const routeQuery = useParams();
+  // useEffect(() => {
+  //   console.log(routeQuery);
+  // }, [routeQuery])
+  return (
+    <div>Basis</div>
+  )
 }
