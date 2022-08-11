@@ -129,7 +129,7 @@ export function dragDefaultContentHandler(style: any, callbackMap: any) {
   }
 }
 
-function format(list: Array<any>, newFindIndex:number, oldFindIndex:number): Array<any> {
+export function format(list: Array<any>, newFindIndex:number, oldFindIndex:number): Array<any> {
   const newList = [...list]
   const oldItem = newList.splice(newFindIndex, 1)[0]
   const prefix = newList.slice(0, oldFindIndex)
