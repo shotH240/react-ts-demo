@@ -7,7 +7,14 @@ export default function Drag() {
   const [activeList, setActiveList] = useState([]);
 
   useEffect(() => {
-    dragDefaultContentHandler(style, {
+    console.log('onload')
+    return () => {
+      console.log('unmount==')
+    }
+  }, [])
+
+  useEffect(() => {
+    const clearEvent = dragDefaultContentHandler(style, {
       setActiveList,
       setDefaultList,
       defaultList,

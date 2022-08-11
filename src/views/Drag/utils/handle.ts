@@ -59,10 +59,8 @@ export function dragDefaultContentHandler(style: any, callbackMap: any) {
           const oldId = +e.target.dataset.set
           const newFindIndex = activeList.findIndex((newItem: any) => newItem.value === newId)
           const oldFindIndex = activeList.findIndex((oldItem: any) => oldItem.value === oldId)
-          const newList = [...activeList]
-          const oldItem = newList.splice(newFindIndex, 1, newList[oldFindIndex])[0]
-          newList.splice(oldFindIndex, 1, oldItem)
-          setActiveList([...newList])
+
+          setActiveList([...format([...activeList], newFindIndex, oldFindIndex)])
         }
       }
     })
@@ -80,20 +78,12 @@ export function dragDefaultContentHandler(style: any, callbackMap: any) {
 
     item.ondrop = (e: any) => {
       if (draggedNode !== null && draggedNode !== item) {
-        const temp = document.createElement('div')
-        const dragBox: any = document.querySelector(`.${style['default-list']}`)
-        dragBox.replaceChild(temp, e.target)
-        dragBox.replaceChild(e.target, draggedNode)
-        dragBox.replaceChild(draggedNode, temp)
         // 更改数据源
         const newId = +draggedNode.dataset.set
         const oldId = +e.target.dataset.set
         const newFindIndex = defaultList.findIndex((newItem: any) => newItem.value === newId)
         const oldFindIndex = defaultList.findIndex((oldItem: any) => oldItem.value === oldId)
-        const newList = [...defaultList]
-        const oldItem = newList.splice(newFindIndex, 1, newList[oldFindIndex])[0]
-        newList.splice(oldFindIndex, 1, oldItem)
-        setDefaultList([...newList])
+        setDefaultList([...format([...defaultList], newFindIndex, oldFindIndex)])
       }
     }
   })
@@ -130,48 +120,20 @@ export function dragDefaultContentHandler(style: any, callbackMap: any) {
     setActiveList([...newList])
     setDefaultList(result)
   }
+
+  return () => {
+    const eventDomList = [activeDragNode, dragActiveNodes]
+    return () => {
+      console.log('eventDomList', eventDomList)
+    }
+  }
 }
-// export function dragDefaultContentHandler(style: any, callbackMap: any) {
-//   const { setDefaultList, defaultList } = callbackMap;
-//   // 存放被拖拽的节点
-//   let draggedNode:any = null
-//   const defaultListNode: any = document.querySelector(`.${style['default-list']}`)
-//   // console.log('defaultListNode', defaultListNode)
-//   defaultListNode.addEventListener('dragstart', (e:any) => {
-//     // console.log('e===', e.target, e.target.dataset)
-//     if (e.target.dataset) {
-//       draggedNode = e.target
-//     }
-//   })
 
-//   defaultListNode.addEventListener('dragover', (e: any) => {
-//     e.preventDefault()
-//   })
-
-//   defaultListNode.addEventListener('drop', (e: any) => {
-//     console.log('dged', e.target, draggedNode, defaultListNode)
-//     if (draggedNode !== null && draggedNode !== e.target) {
-//       const temp = document.createElement('div')
-//       // const dragBox: any = document.querySelector(`.${style['default-list']}`)
-// //         dragBox.replaceChild(temp, e.target)
-// //         dragBox.replaceChild(e.target, draggedNode)
-//       defaultListNode.replaceChild(temp, e.target)
-//       defaultListNode.replaceChild(e.target, draggedNode)
-//       defaultListNode.replaceChild(draggedNode, temp)
-//       console.log('dbl==', e.target, draggedNode)
-//       const newId = +draggedNode.dataset.set
-//       const oldId = +e.target.dataset.set
-
-//       const newFindIndex = defaultList.findIndex((newItem: any) => newItem.value === newId)
-//       const oldFindIndex = defaultList.findIndex((oldItem: any) => oldItem.value === oldId)
-//       const newList = [...defaultList]
-//       const oldItem = newList.splice(newFindIndex, 1, newList[oldFindIndex])[0]
-//       newList.splice(oldFindIndex, 1, oldItem)
-//       setDefaultList([...newList])
-//       console.log('defaultList',newList)
-//     }
-//   })
-//   // defaultListNode.addEventListener('ondragstart', (e:any) => {
-//   //   console.log('e===', e.target)
-//   // })
-// }
+function format(list: Array<any>, newFindIndex:number, oldFindIndex:number): Array<any> {
+  const newList = [...list]
+  const oldItem = newList.splice(newFindIndex, 1)[0]
+  const prefix = newList.slice(0, oldFindIndex)
+  const suffix = newList.slice(oldFindIndex)
+  prefix.push(oldItem)
+  return [...prefix, ...suffix]
+}
